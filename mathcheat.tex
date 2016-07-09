@@ -1,0 +1,316 @@
+\documentclass[draft]{cheatsht}
+%Compile with lualatex, use package luatex85 with luatex 0.85 or higher
+\usepackage{luatex85}
+%Needed packages / commands for this specific cheat sheet
+\usepackage{amsmath,amssymb,cancel,tikz,hologo}
+\usepackage{lipsum}
+\newcommand{\Tikz}{{Ti\textcolor{orange}{\emph{k}}Z}}
+\newcommand{\notx}{\textbf{not} }
+
+%pdf meta data
+\pdfinfo{
+  /Title (mathcheat.pdf)
+  /Creator (TeX)
+  /Producer (LuaLaTeX 0.95.0)
+  /Author (Konrad)
+  /Subject (Math / TikZ / PGF Cheat Sheet)
+  /Keywords (lualatex, latex, lua, tex, math, tikz, pgf)
+}
+
+\begin{document}
+%Yes, title works in place and it can be reused
+\title{\LaTeX~Math Cheat Sheet}
+
+\section{Packages}
+
+\begin{tabular}{@{}ll@{}}
+\texttt{amsmath} & Use math macros \\
+\texttt{amssymb} & Use more math symbols \\
+\texttt{cancel} & Cross out text
+\end{tabular}
+
+Use before \verb!\begin{document}!.
+Usage: \verb!\usepackage{!\textit{package name}\verb!}!
+
+\section{Math Mode}
+\subsection{Inline Math}
+Don't use \verb!$!\,\verb!…!\,\verb!$! with \LaTeX.
+Use \verb!\(! \verb!…!\,\verb!\)! instead.
+
+\subsection{Displayed Math}
+Don't use \verb!$$!\,\verb!…!\,\verb!$$! with \LaTeX. Use
+\verb!\[! \verb!…!\,\verb!\]! instead. \\
+
+If you use \AmS\hspace{1pt}math, don't use \verb!\[! \verb!…!\,\verb!\]! either,
+use \verb!\begin{displaymath} !\ldots\verb! \end{displaymath}! (unnumbered) and
+\verb!\begin{equation} !\ldots\verb! \end{equation}! (numbered).
+
+\subsection{Plain Text in Math Mode}
+Use \verb!\text{!\,\verb!…!\,\verb!}! or \verb!\textnormal{!\,\verb!…!\,\verb!}!
+or \verb!\mathrm{!\,\verb!…!\,\verb!}! for inline text.
+Note the different outcomes.\\
+Examples:
+\( math mode, \text{text,~} \textnormal{normaltext,~} \mathrm{mathrm}\)\\
+Use \verb!\intertext{!\,\verb!…!\,\verb!}! for a complete line, only in
+displayed mode.
+
+\section{Sets of Equations}
+
+\begin{tabular}{@{}ll@{}}
+\texttt{\&=} & Typeset and aligns equations on =. Works with any relation.\\
+& Use \verb!\mathrel{!\,\verb!…!\,\verb!}! or
+\verb!\stackrel{!\,\emph{top}\,\verb!}{!\,\emph{bot}\,\verb!}!
+  for custom relations\\
+\texttt{\&} & Add another column\quad
+  \begin{tabular}{ll}
+    \texttt{\textbackslash\textbackslash} & Add another line
+  \end{tabular}
+\end{tabular}
+
+\subsection{align}
+Note that align must \notx be set in math mode!\\
+Usage: \verb@\begin{align} aa &< A & b &\stackrel{!}{=} B \\@
+\verb!c &\mathrel{=_{42}} C & d &= D \end{align}!
+Outcome: \begin{align} aa &< A & b &\stackrel{!}{=} B \\
+c &\mathrel{=_{42}} C & d &= D \end{align}\vspace{-14pt}
+\subsection{aligned}
+Allows for further mathstuff left/right, must be set in math mode.
+Usage: \verb!\begin{aligned} aa &= A & b &= B! \ldots~\verb!\end{aligned}!
+Outcome: \begin{displaymath}
+  \begin{aligned} aa &= A & b &=B \\ c &= C & d &= D \end{aligned}
+\end{displaymath}
+
+\subsection{gather}
+Centered equations, one column. Must \notx be set in math mode!\\
+Usage: \verb!\begin{gather} aa = A \\ b = B \end{gather}!\\
+Outcome: \begin{gather} aa = A \\ b = B \end{gather}
+
+\section{Long Terms/Equations}
+\subsection{multline}
+Set long terms with multiple lines. Must \notx be set in math mode!
+Usage: \verb!\begin{multline} A = 1 +! \ldots~\verb!+ 5 \\+ 6 + 7 +! \ldots \\
+\verb!+ 14 + 15 \end{multline}!\\
+Outcome:
+\begin{multline} A = 1 + 2 + 3 + 4 + 5 \\
+  + 6 + 7 + 8 + 9 + 10 + 11 + 12 + 13 + 14 + 15
+\end{multline}
+
+\subsection{split}
+Set long equations with multiple lines. Must be set in math mode. \\
+Usage: \verb!\begin{split} A &= 5+9+3 \\ &= 14+3 \\ A &= 17 \end{split}!
+Outcome: \begin{displaymath}
+  \begin{split} A &= 5+9+3 \\ &= 14+3 \\ A &= 17 \end{split}
+\end{displaymath}
+
+\section{Cases}
+Set if-then-else cases. Must be set in math mode.\\
+Usage: \verb!\begin{cases} 1 & \text{if A=...} \\!\\
+\verb!2 & \text{if B=...} \end{cases}!\\
+Outcome:\begin{displaymath}\begin{cases}
+1&\text{if A=...}\\
+2&\text{if B=...}
+\end{cases}\end{displaymath}
+
+\section{Matrices}
+\subsection{matrix}
+Set simple matrices. Must be set in math mode.\\
+\begin{tabular}{@{}ll@{}}
+  \verb! \( \begin{bmatrix} a & b \\ c & d \end{bmatrix} \)!
+    & \hspace{-4pt}\(\begin{bmatrix} a & b \\ c & c \end{bmatrix}\) \vspace{4pt}
+\end{tabular}
+\begin{tabular}{@{}llllll@{}}
+  \verb!Bmatrix! & \(\begin{Bmatrix} a & b \\ c & c \end{Bmatrix}\) &
+  \verb!vmatrix! & \(\begin{vmatrix} a & b \\ c & c \end{vmatrix}\) &
+  \verb!Vmatrix! & \(\begin{Vmatrix} a & b \\ c & c \end{Vmatrix}\)
+    \vspace{4pt}\\
+  \verb!pmatrix! & \(\begin{pmatrix} a & b \\ c & c \end{pmatrix}\) &
+  \verb!matrix! & \(\begin{matrix} a & b \\ c & c \end{matrix}\) \vspace{4pt}
+\end{tabular}
+
+A \verb!smallmatrix! for inline use only is available as well.
+\(\begin{smallmatrix}a & b \\ c & d \end{smallmatrix}\)
+
+\subsection{array}
+Set flexible matrices. Allows for further mathstuff left/right,
+must be set in math mode.\\
+Usage: \verb!\begin{array}{lc|r} a & b & c \\!
+\verb!\hline d & e & f \end{array}!\\
+\verb!l! for left aligned, \verb!c! for centered,
+\verb!r! for right aligned column.
+\verb!|! for optional vertical line. \verb!\hline! adds a horizontal line.\\
+Outcome:
+\begin{displaymath}
+  \begin{array}{lc|r} a & b & c \\ \hline d & e & f \end{array}
+\end{displaymath}
+
+\section{Fractions}
+\subsection{frac}
+Usage: \verb! \( \frac{1}{2} \)!\\
+Outcome: \(\frac{1}{2}\)
+
+\subsection{cfrac}
+Set continued fractions, must be set in math mode.\\
+Usage: \verb!\cfrac{1}{1 + \cfrac{2}{33} }!\\
+Outcome: \begin{displaymath}
+  \cfrac{1}{1 + \cfrac{2}{33} }
+\end{displaymath}
+
+\section{Roots}
+Usage: \verb! \( \sqrt[3]{8} \)!\hspace{1.5cm}Outcome: \(\sqrt[3]{8}\)\\
+If the root looks like this \(\sqrt[a_3]{b}\), use \verb!\leftroot{n}! and
+\verb!\uproot{n}! to correct positioning.\\
+Usage: \verb! \( \sqrt[\uproot{3}\leftroot{1} a_3]{8} \)! \\
+Outcome: \(\sqrt[\uproot{3}\leftroot{1} a_3]{8}\)
+
+
+\section{Miscellaneous}
+\subsection{Numbering}    %\tag{linear}\label{eq:linear}
+Use \verb!align*!, \verb!gather*!, \verb!multline*! to supress numbering.\\
+Use \verb!\nonumber! to supress numbering for current line in
+any math environment.
+
+\subsection{Brackets}
+Use \verb!\leftX! paired with \verb!\rightY! with X and Y being \verb!(!
+\verb!)! \verb![! \verb!]!\\
+\begin{tabular}{@{}llll@{}}
+  \verb!\langle! for \(\langle\) & \verb!\rangle! for \(\rangle\) &
+  \verb!\lbrace! for \(\lbrace\) & \verb!\rbrace! for  \(\rbrace\) \\
+  \verb!\lfloor! for \(\lfloor\) & \verb!\lceil! for \(\lceil\) &
+  \verb!\vert! for \(\vert\) & \verb!\Vert! for \(\Vert\)
+\end{tabular}
+
+or \verb!.! to supress one bracket. These brackets adapt in height to fit their
+inner object.\\
+Usage: \verb!\( \left( \frac{1}{2} \right) \)!\\
+Outcome: \( \left( \frac{1}{2} \right) \) as opposed to \((\frac{1}{2})\)
+
+\subsection{Multi-line limits, Custom Operators \& Sidesets}
+\begin{tabular}{@{}ll@{}}
+Usage: \verb!\sum_{ \substack{1<i<p \\ 1<j<q} }! &
+  Outcome: \(\sum_{\substack{1<i<p\\1<j<q}}\) \\
+Usage: \verb!\operatorname{mysin}{x}! & Outcome: \(\operatorname{mysin}{x}\)\\
+Usage: \verb!\sideset{_{1}^{2}}{_{3}^{4}}\sum!&
+  Outcome: \(\sideset{_{1}^{2}}{_{3}^{4}}\sum\)
+\end{tabular}
+
+\subsection{cancel}
+Usage: \verb!\cancel{22}!\hspace{1.5cm}Outcome: \(\cancel{22}\)\vspace{4pt}\\
+\begin{tabular}{@{}lll@{}}
+  \verb!\cancel!  \(\frac{(x+2)\cancel{(x-1)}}{\cancel{(x-1)}(x+1)}\) &
+  \verb!\bcancel! \(\frac{(x+2)\bcancel{(x-1)}}{\bcancel{(x-1)}(x+1)}\) &
+  \verb!\xcancel! \(\frac{(x+2)\xcancel{(x-1)}}{\xcancel{(x-1)}(x+1)}\)
+\end{tabular}
+
+%\subsection{Multi line limits}
+\subsection{Sub-/Superscription}
+Use \verb!_{n}! to subscript and \verb!^{n}! to superscript \verb!n!.\\
+Usage: \verb!\( a_{1_{1}}^{2} \)!\hspace{1.5cm}Outcome: \( a_{1_{1}}^{2}\)
+
+\subsection{Symbols}
+\begin{tabular}{@{}ll||ll@{}}
+  \(\sum_{i=1}^{n}\) & \verb!\sum_{i=1}^{n}! & \(\prod_{i=1}^{n}\) &
+    \verb!\prod_{i=1}^{n}! \\
+  \(\rightarrow\) & \verb!\rightarrow! & \(\leftarrow\) & \verb!\leftarrow! \\
+  \(\Rightarrow\) & \verb!\Rightarrow! & \(\Leftarrow\) & \verb!\Leftarrow! \\
+  \(\uparrow\) & \verb!\uparrow! & \(\downarrow\) & \verb!\downarrow! \\
+  \(\uparrow\) & \verb!\uparrow! & \(\downarrow\) & \verb!\downarrow! \\
+  \(\xrightarrow[3]{44}\) & \verb!\xrightarrow[3]{44}!
+    & \(\xleftarrow[3]{44}\) & \verb!\xleftarrow[3]{44}! \\
+  \(\pi\) & \verb!\pi! & \(\aleph\) & \verb!\aleph! \\
+  \(\overrightarrow{abc}\) & \verb!\overrightarrow{abc}!
+    & \(\overleftarrow{abc}\) & \verb!\overleftarrow{abc}!\\
+  \(\widehat{abc}\) & \verb!\widehat{abc}! & \(\widetilde{abc}\) &
+    \verb!\widetilde{abc}!\\
+  \(\overbrace{abc}\) & \verb!\overbrace{abc}! & \(\underbrace{abc}\) &
+    \verb!\underbrace{abc}!\vspace{-3pt}\\
+  \(\ast\) & \verb!\ast! & \(\cdot\) & \verb!\cdot!\\
+  \(\times\) & \verb!\times! & \(\div\) & \verb!\div!\\
+  \(\leq\) \(\nleq\) & \verb!\leq \nleq!
+    & \(\geq\) \(\ngeq\) & \verb!\geq \ngeq!\\
+  \(\nless\) \(\ngtr\) & \verb!\nless \ngtr! & \(\neq\) & \verb!\neq!\\
+  \(\pm\) & \verb!\pm! & \(\sim\) & \verb!\sim!\\
+  \(\in\) & \verb!\in! & \(\notin\) & \verb!\notin!\\
+  \(\forall\) & \verb!\forall! & \(\exists\) & \verb!\exists!\\
+  \(\sin(x)\) & \verb!\sin(x)! & \(\cos(x)\) & \verb!\cos(x)!\\
+  \(\log n\) & \verb!\log n! & \(\ln n\) & \verb!\ln n!\\
+\end{tabular}
+\signature{
+  2016/6/25 K. Konrad. This work has been released into the public domain\\
+  by the copyright holder. This applies worldwide.
+}
+
+%Add a new cheat sheet with newcheat
+%-------------------------------------------------------------------------------
+\newcheat
+%-------------------------------------------------------------------------------
+\title{\Tikz~\&~PGF~Cheat Sheet}
+
+
+\section{Package \& Basic Usage}
+
+\begin{tabular}{@{}ll@{}}
+\texttt{tikz} & Create Drawings for use in \hologo{(La)TeX},
+  or \hologo{ConTeXt}
+\end{tabular}
+
+Use before \verb!\begin{document}!.
+Usage: \verb!\usepackage{!\textit{package name}\verb!}!\\[2pt]
+Everything \Tikz-related must be preceded by a \verb!\tikz! command or placed
+inside \verb!\begin{tikzpicture} !\ldots\verb! \end{tikzpicture}!.
+
+\section{Geometric figures, grid panes, axes}
+
+\subsection{Rectangle}
+\verb!\tikz \draw (0,0) rectangle (0.2,0.2);!
+\tikz \draw (0,0) rectangle (0.2,0.2);\\
+\verb!\draw! draws the given figure starting from the first coordinate, ending
+with the second coordinate, the standard unit is cm. Don't forget the semicolon!
+
+\subsection{Circle/Ellipses}
+\verb!\tikz \draw (1mm,1mm) circle [radius=0.1cm];!
+\tikz \draw (1mm,1mm) circle [radius=0.1cm];\\
+\verb![radius=0.15cm]! is an optional parameter, the default radius is 0pt. The
+coordinate determines the center of the circle.\\[1pt]
+\begin{minipage}{7cm}
+  \verb!\tikz \draw (3mm,3mm) circle!\\
+  \verb![x radius=0.3cm, y radius=0.15cm];!
+\end{minipage}
+\tikz \draw (3mm,3mm) circle [x radius=0.3cm,y radius=0.15cm];\\
+Use two radii for ellipses.
+\subsection{Line}
+\begin{minipage}{7cm}
+  \verb!\tikz \draw (0,0) -- (1,0.2) -- (1.5,0.1);!
+  Lines are drawn coordinates connected by \verb!--!.
+\end{minipage}
+\tikz \draw (0,0) -- (1,0.2);\\[1pt]
+
+\subsection{Dot}
+\verb!\tikz \filldraw (0,0) circle [radius=2pt];!
+\tikz \filldraw (0,0) circle [radius=2pt];\\
+Use \verb!filldraw! for any filled figure.
+% </foldme>
+\subsection{Triangles/Polygons}
+\verb!\tikz \draw (0,0) -- (0.5,0.2) -- (1,0.1) -- cycle;!
+\tikz \draw (0,0) -- (0.5,0.2) -- (1,0.1) -- cycle;\\
+\verb!\tikz \draw (0,0)--(.4,0.2)--(.8,0.1)--(.4,0)--cycle;!
+\tikz \draw (0,0)--(.4,0.2)--(.8,0.1)--(.4,0)--cycle;\\[1pt]
+Add \verb!cycle! after connected lines to generate a polygon.
+
+\subsection{Arcs}
+\begin{minipage}{7cm}
+  \verb!\tikz \draw (0,0) arc!\\
+  \verb![start angle=0, end angle=120, radius=4mm];!
+\end{minipage}
+\tikz \draw (0,0) arc [start angle=0, end angle=120, radius=4mm];\\[1pt]
+\begin{minipage}{7cm}
+  \verb!\tikz \draw (0,0) arc [start angle=0!\\
+  \verb!, end angle=120, x radius=8mm, y radius=4mm];!
+\end{minipage}
+\tikz \draw (0,0) arc
+  [start angle=0, end angle=120,x radius=8mm, y radius=4mm];\\
+
+~\\[3cm]
+\lipsum[1-10]
+
+
+\end{document}
