@@ -1,4 +1,3 @@
-%For documentclass cheatsht see https://github.com/derkev004/cheatsht
 \documentclass[draft]{cheatsht}
 %Compile with lualatex, use package luatex85 with luatex 0.85 or higher
 \usepackage{luatex85}
@@ -189,7 +188,8 @@ Outcome: \( \left( \frac{1}{2} \right) \) as opposed to \((\frac{1}{2})\)
 \begin{tabular}{@{}ll@{}}
 Usage: \verb!\sum_{ \substack{1<i<p \\ 1<j<q} }! &
   Outcome: \(\sum_{\substack{1<i<p\\1<j<q}}\) \\
-Usage: \verb!\operatorname{mysin}{x}! & Outcome: \(\operatorname{mysin}{x}\)\\
+Usage: \verb!\operatorname{myop}{x} \mathbin{;} 5! &
+  Outcome: \(\operatorname{myop}{x} \mathbin{;} 5\)\\
 Usage: \verb!\sideset{_{1}^{2}}{_{3}^{4}}\sum!&
   Outcome: \(\sideset{_{1}^{2}}{_{3}^{4}}\sum\)
 \end{tabular}
