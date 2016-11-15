@@ -1,4 +1,4 @@
-\documentclass[draft]{cheatsht}
+\documentclass[draft]{../cheatsht/cheatsht}
 %For documentclass cheatsht see https://github.com/derkev004/cheatsht
 %Compile with lualatex, use package luatex85 with luatex 0.85 or higher
 \usepackage{luatex85}
@@ -42,23 +42,25 @@ Use \verb!\(! \verb!…!\,\verb!\)! instead.
 Don't use \verb!$$!\,\verb!…!\,\verb!$$! with \LaTeX. Use
 \verb!\[! \verb!…!\,\verb!\]! instead. \\
 
-If you use \AmS\hspace{1pt}math, don't use \verb!\[! \verb!…!\,\verb!\]! either,
-use \verb!\begin{displaymath} !\ldots\verb! \end{displaymath}! (unnumbered) and
-\verb!\begin{equation} !\ldots\verb! \end{equation}! (numbered).
+If you use \AmS\hspace{1pt}math, don't \verb!\[! \verb!…!\,\verb!\]! either,
+use \verb!\begin{displaymath}!\\\ldots\,\verb!\end{displaymath}! or
+\verb!\begin{equation*}!\,\ldots\,\verb!\end{equation*}!
+(unnumbered) and \verb!\begin{equation}!\,\ldots\,\verb!\end{equation}!
+(numbered).
 
 \subsection{Plain Text in Math Mode}
 Use \verb!\text{!\,\verb!…!\,\verb!}! or \verb!\textnormal{!\,\verb!…!\,\verb!}!
 or \verb!\mathrm{!\,\verb!…!\,\verb!}! for inline text.
-Note the different outcomes.\\
-Examples:
-\( math mode, \text{text,~} \textnormal{normaltext,~} \mathrm{mathrm}\)\\
+Note the different outcomes depending on your font choice.
+\verb!\text{!\,\verb!…!\,\verb!}! is usually the best choice. Examples:
+\( math\,\text{text}\,\textnormal{normaltext}\,\mathrm{mathrm}\)\\
 Use \verb!\intertext{!\,\verb!…!\,\verb!}! for a complete line, only in
 displayed mode.
 
 \section{Sets of Equations}
 
 \begin{tabular}{@{}ll@{}}
-\texttt{\&=} & Typeset and aligns equations on =. Works with any relation.\\
+\texttt{\&=} & Typeset and aligns equations on \verb!=!. Works with any relation.\\
 & Use \verb!\mathrel{!\,\verb!…!\,\verb!}! or
 \verb!\stackrel{!\,\emph{top}\,\verb!}{!\,\emph{bot}\,\verb!}!
   for custom relations\\
@@ -76,7 +78,7 @@ Outcome: \begin{align} aa &< A & b &\stackrel{!}{=} B \\
 c &\mathrel{=_{42}} C & d &= D \end{align}\vspace{-14pt}
 \subsection{aligned}
 Allows for further mathstuff left/right, must be set in math mode.
-Usage: \verb!\begin{aligned} aa &= A & b &= B! \ldots~\verb!\end{aligned}!
+Usage: \verb!\begin{aligned} aa &= A & b &= B!\,\ldots\,\verb!\end{aligned}!
 Outcome: \begin{displaymath}
   \begin{aligned} aa &= A & b &=B \\ c &= C & d &= D \end{aligned}
 \end{displaymath}
@@ -166,7 +168,7 @@ Outcome: \(\sqrt[\uproot{3}\leftroot{1} a_3]{8}\)
 
 \section{Miscellaneous}
 \subsection{Numbering}    %\tag{linear}\label{eq:linear}
-Use \verb!align*!, \verb!gather*!, \verb!multline*! to supress numbering.\\
+Use \verb!equation*!, \verb!align*!, \verb!gather*!, \verb!multline*! to supress numbering.\\
 Use \verb!\nonumber! to supress numbering for current line in
 any math environment.
 
@@ -259,7 +261,7 @@ copyright holder. This applies worldwide. The Source Code is on \\
 Use before \verb!\begin{document}!.
 Usage: \verb!\usepackage{!\textit{package name}\verb!}!\\[2pt]
 Everything \Tikz-related must be preceded by a \verb!\tikz! command or placed
-inside \verb!\begin{tikzpicture} !\ldots\verb! \end{tikzpicture}!.
+inside \verb!\begin{tikzpicture}!\,\ldots\,\verb!\end{tikzpicture}!.
 
 \section{Geometric figures, grid panes, axes}
 
